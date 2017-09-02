@@ -11,13 +11,13 @@
 |
 */
 
-// use App\Profile;
+use App\Profile;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-/*
+
 Route::get('/seed', function (Profile $profile) {
     $f = \Faker\Factory::create();
     foreach(range(0,1000) as $x){
@@ -30,6 +30,8 @@ Route::get('/seed', function (Profile $profile) {
     		'bio' => $f->paragraph($nbSentences = 3, $variableNbSentences = true),
     		'instagram' => $f->url(),
     		'spotify' => $f->url(),
+    		'school_id' => $f->numberBetween($min = 1, $max = 10),
+    		'work_id' => $f->numberBetween($min = 1, $max = 10),
     		'locality_id' => $f->numberBetween($min = 1, $max = 10),
     		'city_id' => $f->numberBetween($min = 1, $max = 10),
     		'state_id' => $f->numberBetween($min = 1, $max = 7),
@@ -37,4 +39,3 @@ Route::get('/seed', function (Profile $profile) {
     	]);
     }
 });
-*/

@@ -15,6 +15,8 @@ class Profile extends Model
     	'bio',
     	'instagram',
     	'spotify',
+    	'school_id',
+    	'work_id',
     	'locality_id',
     	'city_id',
     	'state_id',
