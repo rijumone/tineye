@@ -1,16 +1,16 @@
 {
-	"btn":
+	"nav-btn":
 	{	"like":
 			{
 				"x":752,
 				"y":1800
 			}
 	},
-	"on-screen":
+	"nav-on-screen":
 	{	"like":
 			{
 				"x":762,
-				"y":1800
+				"y":1663
 			}
 	},
 }

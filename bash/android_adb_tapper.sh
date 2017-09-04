@@ -23,7 +23,7 @@ while true; do # forever
 	for i in $(seq 1 1 3)
 	do
 		echo "initiating swipe for main page"
-		adb shell input swipe 400 900 400 300 200 # vertical swipe on image
+		adb shell input swipe 400 900 400 180 200 # vertical swipe on page
 		echo "saving screenshot"
 		adb shell screencap /sdcard/screen.png
     	adb pull /sdcard/screen.png /media/rijumone/3AB8-1F06/Download/tmp/data/$timestamp/"main_"$i.png
@@ -45,7 +45,7 @@ while true; do # forever
 		fi
 		
 	done
-	adb shell input swipe 400 300 400 900 50 # vertical swipe on image to get it back to images
+	adb shell input swipe 400 300 400 900 50 # vertical swipe on page to get it back to images
 	for i in $(seq 1 1 5)
 	do
 		echo "initiating swipe for images"
@@ -72,7 +72,8 @@ while true; do # forever
 		fi
 	done
 	echo "exiting details page"
-	adb shell input tap 875 1650 				# tap on like; exit details page
+	adb shell input tap 900 1800 				# tap on like; exit details page
+	# adb shell input tap 900 1663 				# tap on like; exit details page
     	    	
 	# java -cp scrollscreenshot-latest.jar com.pgssoft.scrollscreenshot.ScrollScreenShot -i 0 --pathsdk /home/rijumone/Android/Sdk -c 2 #scrolling screenshot of page, not working as expected
 
