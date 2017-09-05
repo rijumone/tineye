@@ -6,12 +6,19 @@
 # 		then
 # 			res=$((res * -1))
 # 		fi
+# 		if [ $i -eq 1 ]
+# 		then
+# 			echo "working once"
+# 		fi
 # 		echo $res
 # 	done
 # adb shell getevent -l
+# adb tcpip 5555
 
-city="Mumbai"
-dir_to_save="/media/rijumone/7FA69FA47B202A2C/Downloads/tmp/data/"
+# city="Mumbai"
+city="Delhi"
+# dir_to_save="/media/rijumone/7FA69FA47B202A2C/Downloads/tmp/data/"
+dir_to_save="/media/rijumone/3AB8-1F06/Download/tmp/data/"
 # echo dir_to_save
 mkdir $dir_to_save$city
 while true; do # forever
@@ -61,7 +68,12 @@ while true; do # forever
     	adb pull /sdcard/screen.png $dir_to_save$city/$timestamp/$i.png
 
     	# compare current screenshot to last captured screenshot
-		filesize_current=$(stat -c%s $dir_to_save$city/$timestamp/$i.png)
+    	if [ $i -eq 1 ]
+		then
+			filesize_current=$(stat -c%s $dir_to_save$city/$timestamp/main.png)
+		else
+			filesize_current=$(stat -c%s $dir_to_save$city/$timestamp/$i.png)
+		fi
 		filesize_last=$(stat -c%s $dir_to_save$city/$timestamp/$((i - 1)).png)
 		difference=$((filesize_current - filesize_last))
 		# echo $difference
