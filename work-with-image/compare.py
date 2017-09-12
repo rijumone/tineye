@@ -4,13 +4,14 @@
 Usage: python compare.py first-image second-image
 """
 
-import sys
+import sys, time
 
 from scipy.misc import imread
 from scipy.linalg import norm
 from scipy import sum, average
 
 def main():
+    print time.time()
     file1, file2 = sys.argv[1:1+2]
     # read images as 2D arrays (convert to grayscale for simplicity)
     img1 = to_grayscale(imread(file1).astype(float))
@@ -19,6 +20,7 @@ def main():
     n_m, n_0 = compare_images(img1, img2)
     print "Manhattan norm:", n_m, "/ per pixel:", n_m/img1.size
     print "Zero norm:", n_0, "/ per pixel:", n_0*1.0/img1.size
+    print time.time()
 
 def compare_images(img1, img2):
     # normalize to compensate for exposure difference
