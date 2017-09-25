@@ -27,9 +27,9 @@ height = img.size[1]
 img3 = img.crop(
     (
         width - 1080,
-        height - 1320,
+        height - 1210,
         width,
-        height - 720
+        height - 610
     )
 )
 img3.save("main_cropped_1.png")
