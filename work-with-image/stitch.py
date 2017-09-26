@@ -7,6 +7,7 @@ from scipy.misc import imread
 from scipy.linalg import norm
 from scipy import sum, average
 from shutil import copyfile
+
 def main(file1="",file2=""):
     # print time.time()
     if file1 is "" and file2 is "":
@@ -46,72 +47,79 @@ def normalize(arr):
 # if __name__ == "__main__":
 #     main()
 
-for directory in os.listdir("/media/rijumone/Seagate BUP Slim1/bkp/data/Delhi"):
+# filePath = "/media/rijumone/Seagate BUP Slim1/bkp/data/Delhi"
+filePath = "/media/rijumone/3AB8-1F06/Download/tmp/data/Delhi"
+
+for directory in os.listdir(filePath):
     # print directory
+    if os.path.isfile(filePath + "/" + directory + "/main.png"):
 
-    copyfile("/media/rijumone/Seagate BUP Slim1/bkp/data/Delhi/"+directory+"/main.png", "/home/rijumone/Kitchen/tineye/work-with-image/main.png")
-    copyfile("/media/rijumone/Seagate BUP Slim1/bkp/data/Delhi/"+directory+"/main_1.png", "/home/rijumone/Kitchen/tineye/work-with-image/main_1.png")
+        copyfile(filePath + "/" + directory + "/main.png", "/home/rijumone/Kitchen/tineye/work-with-image/main.png")
+        copyfile(filePath + "/" + directory+"/main_1.png", "/home/rijumone/Kitchen/tineye/work-with-image/main_1.png")
 
-    img = Image.open("main.png")
+        img = Image.open("main.png")
 
-    # print "generating cropped image from main image bottom"
-
-    width = img.size[0]
-    height = img.size[1]
-    img3 = img.crop(
-        (
-            0,
-            height - 789,
-            width,
-            height - 200
-        )
-    )
-    img3.save("main_cropped.png")
-
-    zero_norm_pp = 1
-    current_height = -1
-    ctr = 0
-    lowestVals = {"a":9999999999,"b":9999999999,"c":9999999999,"d":9999999999}
-    while True :
-    # while zero_norm_pp > 0.07 :
-        # keep generating images and comparing
-        # print "now generating cropped image from main image 1 top"
-        
-        current_height+=1
-        
-        img = Image.open("main_1.png")
+        # print "generating cropped image from main image bottom"
 
         width = img.size[0]
         height = img.size[1]
         img3 = img.crop(
             (
                 0,
-                current_height,
+                height - 789,
                 width,
-                current_height + 589
+                height - 200
             )
         )
-        img3.save("main_cropped_1.png")
+        img3.save("main_cropped.png")
 
-        returnVals = main("main_cropped.png","main_cropped_1.png")
-        if lowestVals["a"] > returnVals[0]:
-            lowestVals["a"] = returnVals[0]
-        if lowestVals["b"] > returnVals[1]:
-            lowestVals["b"] = returnVals[1]
-        if lowestVals["c"] > returnVals[2]:
-            lowestVals["c"] = returnVals[2]
-        if lowestVals["d"] > returnVals[3]:
-            lowestVals["d"] = returnVals[3]
+        zero_norm_pp = 1
+        current_height = -1
+        ctr = 0
+        lowestVals = {"a":9999999999,"b":9999999999,"c":9999999999,"d":9999999999}
+        while True :
+        # while zero_norm_pp > 0.07 :
+            # keep generating images and comparing
+            # print "now generating cropped image from main image 1 top"
+            
+            current_height+=1
+            
+            img = Image.open("main_1.png")
 
-        ctr+=1
-        print returnVals
-        print lowestVals
-        if ctr > 1331: # image end reached
-            break
+            width = img.size[0]
+            height = img.size[1]
+            img3 = img.crop(
+                (
+                    0,
+                    current_height,
+                    width,
+                    current_height + 589
+                )
+            )
+            img3.save("main_cropped_1.png")
 
-    with open('data.csv','w+') as a:
-    # a.writelines("Name,Age\n")
-        a.writelines(lowestVals["a"] + ","  + lowestVals["b"] + ","  + lowestVals["c"] + ","  + lowestVals["d"] + "\n") 
+            returnVals = main("main_cropped.png","main_cropped_1.png")
+            if lowestVals["a"] > returnVals[0]:
+                lowestVals["a"] = returnVals[0]
+            if lowestVals["b"] > returnVals[1]:
+                lowestVals["b"] = returnVals[1]
+            if lowestVals["c"] > returnVals[2]:
+                lowestVals["c"] = returnVals[2]
+            if lowestVals["d"] > returnVals[3]:
+                lowestVals["d"] = returnVals[3]
+            
+            ctr+=1
+            print returnVals
+            print lowestVals
+            print "============"
+            print ctr
+            print "===================================================================================="
+            if ctr > 1331: # image end reached
+                break
+
+        with open('data.csv','a') as a:
+        # a.writelines("Name,Age\n")
+            a.writelines(str(lowestVals["a"]) + ","  + str(lowestVals["b"]) + ","  + str(lowestVals["c"]) + ","  + str(lowestVals["d"]) + "\n") 
 
 # 0.0384521604938
 
