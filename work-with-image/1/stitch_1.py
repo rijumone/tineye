@@ -97,15 +97,8 @@ for directory in os.listdir(filePath):
                 )
             )
             img3.save("main_cropped_1.png")
-            try:
-                returnVals = main("main_cropped.png","main_cropped_1.png")
-            except Exception as e:
-                break
-            else:
-                pass
-            finally:
-                pass
-            
+
+            returnVals = main("main_cropped.png","main_cropped_1.png")
             if lowestVals["a"] > returnVals[0]:
                 lowestVals["a"] = returnVals[0]
             if lowestVals["b"] > returnVals[1]:
