@@ -109,6 +109,7 @@ for directory in os.listdir(filePath):
                 lowestVals["d"] = returnVals[3]
             
             ctr+=1
+            print filePath + "/" + directory
             print returnVals
             print lowestVals
             print "============"
@@ -119,7 +120,7 @@ for directory in os.listdir(filePath):
 
         with open('data.csv','a') as a:
         # a.writelines("Name,Age\n")
-            a.writelines(str(lowestVals["a"]) + ","  + str(lowestVals["b"]) + ","  + str(lowestVals["c"]) + ","  + str(lowestVals["d"]) + "\n") 
+            a.writelines(directory + "," + str(lowestVals["a"]) + ","  + str(lowestVals["b"]) + ","  + str(lowestVals["c"]) + ","  + str(lowestVals["d"]) + "\n") 
 
 # 0.0384521604938
 
