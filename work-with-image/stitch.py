@@ -52,7 +52,7 @@ filePath = "/media/rijumone/3AB8-1F06/Download/tmp/data/Delhi"
 
 for directory in os.listdir(filePath):
     # print directory
-    if os.path.isfile(filePath + "/" + directory + "/main.png"):
+    if os.path.isfile(filePath + "/" + directory + "/main.png") and os.path.isfile(filePath + "/" + directory + "/main_1.png"):
 
         copyfile(filePath + "/" + directory + "/main.png", "/home/rijumone/Kitchen/tineye/work-with-image/main.png")
         copyfile(filePath + "/" + directory+"/main_1.png", "/home/rijumone/Kitchen/tineye/work-with-image/main_1.png")
