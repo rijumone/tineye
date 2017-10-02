@@ -48,7 +48,8 @@ def normalize(arr):
 #     main()
 
 # filePath = "/media/rijumone/Seagate BUP Slim1/bkp/data/Delhi"
-filePath = "/media/rijumone/3AB8-1F06/Download/tmp/data/Delhi"
+# filePath = "/media/rijumone/3AB8-1F06/Download/tmp/data/Delhi"
+filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Delhi"
 
 for directory in os.listdir(filePath):
     # print directory
@@ -76,13 +77,15 @@ for directory in os.listdir(filePath):
         zero_norm_pp = 1
         current_height = -1
         ctr = 0
+        lowestValsNotChangedForNIterations = 0
         lowestVals = {"a":9999999999,"b":9999999999,"c":9999999999,"d":9999999999}
+        oldLowestVals = {"a":0,"b":0,"c":0,"d":0}
         while True :
         # while zero_norm_pp > 0.07 :
             # keep generating images and comparing
             # print "now generating cropped image from main image 1 top"
             
-            current_height+=1
+            current_height += 1
             
             img = Image.open("main_1.png")
 
@@ -106,6 +109,11 @@ for directory in os.listdir(filePath):
             finally:
                 pass
             
+            oldLowestVals["a"] = lowestVals["a"]
+            oldLowestVals["b"] = lowestVals["b"]
+            oldLowestVals["c"] = lowestVals["c"]
+            oldLowestVals["d"] = lowestVals["d"]
+            
             if lowestVals["a"] > returnVals[0]:
                 lowestVals["a"] = returnVals[0]
             if lowestVals["b"] > returnVals[1]:
@@ -115,6 +123,13 @@ for directory in os.listdir(filePath):
             if lowestVals["d"] > returnVals[3]:
                 lowestVals["d"] = returnVals[3]
             
+            if lowestVals["a"] is oldLowestVals["a"] and lowestVals["b"] is oldLowestVals["b"]  and lowestVals["c"] is oldLowestVals["c"]  and lowestVals["d"] is oldLowestVals["d"]:
+                lowestValsNotChangedForNIterations += 1
+            else:
+                lowestValsNotChangedForNIterations = 0
+            print lowestValsNotChangedForNIterations
+            
+
             ctr+=1
             print filePath + "/" + directory
             print returnVals
@@ -122,15 +137,10 @@ for directory in os.listdir(filePath):
             print "============"
             print ctr
             print "===================================================================================="
-            if ctr > 1331: # image end reached
+            if ctr > 1322 or lowestValsNotChangedForNIterations > 200: # image end reached or values not changing for more than 200 iterations
                 break
 
-        with open('data.csv','a') as a:
-        # a.writelines("Name,Age\n")
-            a.writelines(directory + "," + str(lowestVals["a"]) + ","  + str(lowestVals["b"]) + ","  + str(lowestVals["c"]) + ","  + str(lowestVals["d"]) + "\n") 
+        with open('data-height.csv','a') as a:
+            a.writelines(directory + "," + str(lowestVals["a"]) + ","  + str(lowestVals["b"]) + ","  + str(lowestVals["c"]) + ","  + str(lowestVals["d"]) + "," + str(current_height) + "\n" )
 
-# 0.0384521604938
-
-# {'a': 491480.83431952458, 'c': 396102.0, 'b': 0.77262282952827233, 'd': 0.62268439916996798} Renuka
-# {'a': 131340.75842696629, 'c': 6459.0, 'b': 0.20647166953871329, 'd': 0.010153744576495} Sharon
-# {'a': 11003.5, 'c': 1100.0, 'b': 0.017297836886122114, 'd': 0.0017292334779601332} Pankhuri
+# 132
