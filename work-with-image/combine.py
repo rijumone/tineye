@@ -30,4 +30,4 @@ result.paste(b.crop((0,0 ,1080,1920)) , (0, height , 1080, 1920 + height))
 result.save("result.png")
 
 # 63
-1504675730
+# 1504675730
