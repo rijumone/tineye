@@ -14,7 +14,7 @@ filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Delhi"
 
 for directory in os.listdir(filePath):
 	# int(directory) <= 1504385426 and 
-	if int(directory) <= 1506082740 and os.path.isfile(filePath + "/" + directory + "/pytesseract_dump.txt"):
+	if int(directory) >= 1506082740 and os.path.isfile(filePath + "/" + directory + "/pytesseract_dump.txt"):
 		f_name = ""
 		l_name = ""
 		age = ""
@@ -30,16 +30,24 @@ for directory in os.listdir(filePath):
 		city_id = "1"
 		country_id = "1"
 		with open(filePath + "/" + directory + "/pytesseract_dump.txt","r") as f:
+			print directory
 			for line in f:
 				# print line
-				print directory
 				name_age = line.split(", ")
 				if len(name_age) > 1:
 					name_age[1] = name_age[1].replace("\n","")
-					# print name_age[1]
 					if name_age[1].isdigit():
-						print name_age
-				# print name_age
+						age = name_age[1]
+				if not age:
+					name_age = line.split(",")
+					# print name_age
+					if len(name_age) > 1:
+						name_age[1] = name_age[1].replace("\n","")
+						# print name_age[1]
+						if name_age[1].isdigit() and int(name_age[1]) > 0	:
+							age = name_age[1]
+					# print "not age"
+			print age
 	print "==============="
 
 	# Prepare SQL query to INSERT a record into the database.
