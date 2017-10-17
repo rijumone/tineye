@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 */
 Route::get('/', 'ProfileController@index');
+Route::get('/thumb/{id}', 'ProfileController@thumb');
+Route::get('/detail/{id}', 'ProfileController@detail')->name('detail');
 
 
 Route::get('/seed', function (Profile $profile) {

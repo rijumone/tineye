@@ -1,0 +1,1 @@
+<img src="http://localhost:8001/Delhi/{{ $id }}/thumb.png">
