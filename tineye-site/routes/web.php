@@ -12,10 +12,12 @@
 */
 
 use App\Profile;
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+Route::get('/', 'ProfileController@index');
 
 
 Route::get('/seed', function (Profile $profile) {

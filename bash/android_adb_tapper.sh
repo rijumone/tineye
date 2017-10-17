@@ -14,20 +14,26 @@
 # 	done
 # adb shell getevent -l
 # adb tcpip 5555
-
+# echo $((16#00000727)) # convert hex to decimal
 # city="Mumbai"
 city="Delhi"
 # dir_to_save="/media/rijumone/7FA69FA47B202A2C/Downloads/tmp/data/"
-dir_to_save="/media/rijumone/3AB8-1F06/Download/tmp/data/"
+dir_to_save="/media/rijumone/BE02-5C63/Download/tmp/data/"
 # echo dir_to_save
 mkdir $dir_to_save$city
+
+# switch to full screen
+adb shell settings put global policy_control immersive.status=*
+# switch off full screen
+# adb shell settings put global policy_control null*
+
 while true; do # forever
     # adb shell input tap 762 1663 				# like
     timestamp=$(date +%s)
 	mkdir $dir_to_save$city/$timestamp # mkdir with current time
 	echo $timestamp 
 	echo "entering details page"
-    adb shell input tap 400 850 				# tap on image; enter details page
+    adb shell input tap 606 1496 				# tap on image; enter details page
     sleep .7								# allow app to catch up before capturing screenshot
     echo "capturing main screenshot"
     adb shell screencap /sdcard/screen.png
@@ -89,7 +95,7 @@ while true; do # forever
 		fi
 	done
 	echo "exiting details page"
-	adb shell input tap 900 1800 				# tap on like; exit details page
+	adb shell input tap 715 1831 				# tap on like; exit details page
 	# adb shell input tap 900 1663 				# tap on like; exit details page
     	    	
 	# java -cp scrollscreenshot-latest.jar com.pgssoft.scrollscreenshot.ScrollScreenShot -i 0 --pathsdk /home/rijumone/Android/Sdk -c 2 #scrolling screenshot of page, not working as expected

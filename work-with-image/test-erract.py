@@ -8,10 +8,10 @@ import pytesseract
 
 # print(pytesseract.image_to_string(Image.open('a.png')))
 
-filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Mumbai"
+filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Delhi"
 
 for directory in os.listdir(filePath):
-	# int(directory) <= 1504385426 and 
+	# int(directory) >= 1508260426 and 
     if os.path.isfile(filePath + "/" + directory + "/main.png"):
     	print "================================================"
     	print directory

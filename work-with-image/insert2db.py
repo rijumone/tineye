@@ -12,13 +12,13 @@ db = MySQLdb.connect("localhost","root","root","tineye")
 cursor = db.cursor()
 
 
-filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Mumbai"
+filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Delhi"
 regex = re.compile(r"[^\d]", re.IGNORECASE)
 cnt = 0
 
 for directory in os.listdir(filePath):
-	# int(directory) <= 1506082740 and 
-	if os.path.isfile(filePath + "/" + directory + "/pytesseract_dump.txt"):
+	# int(directory) >= 1508260426 and 
+	if int(directory) >= 1508260426 and os.path.isfile(filePath + "/" + directory + "/pytesseract_dump.txt"):
 		f_name = ""
 		l_name = ""
 		age = ""
@@ -67,7 +67,7 @@ for directory in os.listdir(filePath):
 		print "age: %s" % age
 		if f_name is not "" and age is not "":		
 			# Prepare SQL query to INSERT a record into the database.
-			sql = ("INSERT INTO `profiles` (`id`, `first_name`, `last_name`, `age`, `sex`, `active`, `bio`, `instagram`, `spotify`, `school_id`, `work_id`, `locality_id`, `state_id`, `city_id`, `country_id`, `created_at`, `updated_at`) VALUES ('%s', '%s', '%s', '%s', 'woman', '1', NULL, NULL, NULL, NULL, NULL, NULL, '2', '2', '1', NULL, NULL);" %(directory,f_name,l_name,str(age)))
+			sql = ("INSERT INTO `profiles` (`id`, `first_name`, `last_name`, `age`, `sex`, `active`, `bio`, `instagram`, `spotify`, `school_id`, `work_id`, `locality_id`, `state_id`, `city_id`, `country_id`, `created_at`, `updated_at`) VALUES ('%s', '%s', '%s', '%s', 'woman', '1', NULL, NULL, NULL, NULL, NULL, NULL, '%s', '%s', '%s', NULL, NULL);" %(directory,f_name,l_name,str(age), state_id, city_id, country_id))
 			print sql
 			try:
 			   # Execute the SQL command
