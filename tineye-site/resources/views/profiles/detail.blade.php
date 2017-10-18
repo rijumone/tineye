@@ -14,11 +14,11 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="http://mccoylaboratories.com/tineye/data/{{ $city }}/{{ $id }}/main.png" alt="">
+      <img src="{{ env('IMAGE_CDN') }}{{ $city }}/{{ $id }}/main.png" alt="">
     </div>
 @for ($i = 1; $i < 6; $i++)
     <div class="item">
-      <img src="http://mccoylaboratories.com/tineye/data/{{ $city }}/{{ $id }}/{{ $i }}.png" alt="">
+      <img src="{{ env('IMAGE_CDN') }}{{ $city }}/{{ $id }}/{{ $i }}.png" alt="">
     </div>
 @endfor
   </div>
