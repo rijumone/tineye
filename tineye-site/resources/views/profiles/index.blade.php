@@ -83,7 +83,7 @@
 <script type="text/javascript">
 
     $("tr.profile_row").click(function(){
-        $("img#thumb_image").attr("src","http://localhost:8001/"+cities_map[$(this).data('profile_city')]+"/"+$(this).data('profile_id')+"/thumb.png");
+        $("img#thumb_image").attr("src","http://mccoylaboratories.com/tineye/data/"+cities_map[$(this).data('profile_city')]+"/"+$(this).data('profile_id')+"/thumb.png");
         $(".modal-title").html($(this).data('profile_data'));
         $("a#detail_anchor").attr("href", $(this).data('detail_anchor'));
         $("#thumb_modal").modal();
