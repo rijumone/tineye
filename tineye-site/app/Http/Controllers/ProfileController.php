@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Profile;
 use App\City;
+use View;
 
 class ProfileController extends Controller
 {
@@ -16,6 +17,13 @@ class ProfileController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
+
+		$cities_map = array(
+			"New Delhi"=>"Delhi",
+			"Mumbai"=>"Mumbai",
+			);
+		View::share('cities_map', json_encode($cities_map));
+		
     }
     public function index(Request $request)
 	{
@@ -47,7 +55,7 @@ class ProfileController extends Controller
 			"New Delhi"=>"Delhi",
 			"Mumbai"=>"Mumbai",
 			);
-
+// dd(json_encode($cities_map));
 		$cities_dict = array();
 		foreach ($cities as $city) {
 			$cities_dict[$city->id] = $city->name;

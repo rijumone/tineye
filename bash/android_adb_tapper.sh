@@ -16,7 +16,7 @@
 # adb tcpip 5555
 # echo $((16#00000727)) # convert hex to decimal
 # city="Mumbai"
-city="Delhi"
+city="Bengaluru"
 # dir_to_save="/media/rijumone/7FA69FA47B202A2C/Downloads/tmp/data/"
 dir_to_save="/media/rijumone/BE02-5C63/Download/tmp/data/"
 # echo dir_to_save

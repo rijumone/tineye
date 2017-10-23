@@ -39,11 +39,22 @@
 
                     <!-- Table Headings -->
                     <thead>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Age</th>
-                        <th>Sex</th>
-                        <th>City</th>
+                        <th><input type="text" class="form-control" name="first_name" placeholder="First Name" /></th>
+                        <th><input type="text" class="form-control" name="last_name" placeholder="Last Name" /></th>
+                        <th><input type="number" class="form-control" name="age" placeholder="Age" min="18" max="55" /></th>
+                        <th>
+                            <select class="form-control">
+                                <option value="man">Man</option>    
+                                <option value="woman">Woman</option>    
+                            </select>
+                        </th>
+                        <th>
+                            <select class="form-control">
+                            @foreach (json_decode($cities_map, TRUE) as $city => $value)
+                                <option value="{{$city}}">{{$city}}</option>    
+                            @endforeach
+                            </select>
+                        </th>
                         <th>&nbsp;</th>
                     </thead>
 
