@@ -57,9 +57,9 @@
                         </th>
                         <th>&nbsp;</th>
                     </thead>
-
                     <!-- Table Body -->
                     <tbody>
+                    <tr><td><input type="submit" name="" class="btn-primary" value="Submit" /></td></tr>
                         @foreach ($profiles as $profile)
                             <tr class="profile_row" data-profile_id="{{ $profile->id }}" data-profile_city="{{ $cities[$profile->city_id] }}" data-profile_data="{{ $profile->first_name }} {{ $profile->last_name }}, {{ $profile->age }}" data-detail_anchor="{{ route('detail', ['id' => $profile->id]) }}" >
                                 <!-- First Name -->

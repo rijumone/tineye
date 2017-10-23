@@ -2,8 +2,11 @@ import os
 
 from PIL import Image
 
+# city = "Delhi"
+# city = "Mumbai"
+city = "Bengaluru"
 
-filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Mumbai"
+filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/" + city
 
 for directory in os.listdir(filePath):
 	# int(directory) >= 1508260426 and 

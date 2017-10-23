@@ -11,14 +11,17 @@ db = MySQLdb.connect("localhost","root","root","tineye")
 # Create a cursor object
 cursor = db.cursor()
 
+# city = "Delhi"
+# city = "Mumbai"
+city = "Bengaluru"
 
-filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Delhi"
+filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/" + city
 regex = re.compile(r"[^\d]", re.IGNORECASE)
 cnt = 0
 
 for directory in os.listdir(filePath):
 	# int(directory) >= 1508260426 and 
-	if int(directory) >= 1508260426 and os.path.isfile(filePath + "/" + directory + "/pytesseract_dump.txt"):
+	if os.path.isfile(filePath + "/" + directory + "/pytesseract_dump.txt"):
 		f_name = ""
 		l_name = ""
 		age = ""
@@ -30,8 +33,8 @@ for directory in os.listdir(filePath):
 		school_id = "NULL"
 		work_id = "NULL"
 		locality_id = "NULL"
-		state_id = "1"
-		city_id = "1"
+		state_id = "3"
+		city_id = "3"
 		country_id = "1"
 		with open(filePath + "/" + directory + "/pytesseract_dump.txt","r") as f:
 			print directory

@@ -14,15 +14,17 @@ class ProfileController extends Controller
      *
      * @return void
      */
+	  private $cities_map;
     public function __construct()
     {
         // $this->middleware('auth');
 
-		$cities_map = array(
+		$this->cities_map = array(
 			"New Delhi"=>"Delhi",
 			"Mumbai"=>"Mumbai",
+			"Bengaluru"=>"Bengaluru",
 			);
-		View::share('cities_map', json_encode($cities_map));
+		View::share('cities_map', json_encode($this->cities_map));
 		
     }
     public function index(Request $request)
@@ -51,10 +53,7 @@ class ProfileController extends Controller
 		$cities = City::select('name')->where('id', $details->city_id->city_id)->get()->first;
 		// $cities = City::get();
 		// dd($cities->name->name);
-		$cities_map = array(
-			"New Delhi"=>"Delhi",
-			"Mumbai"=>"Mumbai",
-			);
+		
 // dd(json_encode($cities_map));
 		$cities_dict = array();
 		foreach ($cities as $city) {
@@ -62,7 +61,7 @@ class ProfileController extends Controller
 		}
 
 	    return view('profiles.detail', [
-	        'city' => $cities_map[$cities->name->name],
+	        'city' => $this->cities_map[$cities->name->name],
 	        'id' => $request->id,
 	    ]);
 	}

@@ -8,7 +8,11 @@ import pytesseract
 
 # print(pytesseract.image_to_string(Image.open('a.png')))
 
-filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/Delhi"
+# city = "Delhi"
+# city = "Mumbai"
+city = "Bengaluru"
+
+filePath = "/media/rijumone/BE02-5C63/Download/tmp/data/" + city
 
 for directory in os.listdir(filePath):
 	# int(directory) >= 1508260426 and 
