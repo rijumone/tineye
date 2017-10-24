@@ -29,6 +29,12 @@ class ProfileController extends Controller
     }
     public function index(Request $request)
 	{
+		$name = $request->get("name");
+		$sex = $request->get("sex");
+		$city = $request->get("city");
+		$age_from = $request->get("age_from");
+		$age_to = $request->get("age_to");
+		
 	    $profiles = Profile::get();
 	    $cities = City::get();
 		// dd($cities);
