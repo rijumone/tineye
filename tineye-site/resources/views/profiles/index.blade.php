@@ -5,55 +5,36 @@
 <!-- Create Task Form... -->
 
 <!-- Current Tasks -->
-@if (count($profiles) > 0)
+
 <div class="panel panel-default">
     <div class="panel-heading">
         All profiles
     </div>
     <!-- Trigger the modal with a button -->
     <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#thumb_modal">Open Modal</button> -->
-
-    <!-- Modal -->
-    <div id="thumb_modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body text-center">
-                    <img id="thumb_image" src="">
-                    <br/>
-                    <p><a class="btn btn-default btn-primary" id="detail_anchor" href="javascript:void(0)">Tap to go to details page</a></p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
     <form class="form-inline">
         Showing <span>5</span> result<span>s</span> from 
         <select name="sex" class="form-control">
             <option value="0">both</option>    
             <option value="man">men</option>    
-            <option value="woman">women</option>    
+            <option value="woman" selected>women</option>    
         </select> 
         named like 
-        <input type="text" class="form-control" name="name" placeholder="Name" /> 
+        <input type="text" class="form-control" name="name" placeholder="Name" value="Sneha" /> 
         in 
         <select name="city" class="form-control">
+            <option value="Delhi" selected>New Delhi</option>    
             @foreach (json_decode($cities_map, TRUE) as $city => $value)
             <option value="{{$city}}">{{$city}}</option>    
             @endforeach
         </select> 
-        and surrounding areas, aged between <input type="number" class="form-control" name="age_from" placeholder="Age from" /> &amp; <input type="number" class="form-control" name="age_to" placeholder="Age to" />
+        and surrounding areas, aged between 
+        <input type="number" class="form-control" name="age_from" placeholder="Age from" value="18" /> 
+        &amp; 
+        <input type="number" class="form-control" name="age_to" placeholder="Age to" value="19" />
         <input type="submit" class="btn-primary form-control" name="" value="Search">
     </form>
+    @if (count($profiles) > 0)
     <div class="panel-body table-responsive">
         <table class="table table-striped">
 
@@ -91,8 +72,33 @@
             </tbody>
         </table>
     </div>
+    @endif
+
 </div>
-@endif
+
+<!-- Modal -->
+<div id="thumb_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body text-center">
+                <img id="thumb_image" src="">
+                <br/>
+                <p><a class="btn btn-default btn-primary" id="detail_anchor" href="javascript:void(0)">Tap to go to details page</a></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script type="text/javascript">
 
