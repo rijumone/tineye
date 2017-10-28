@@ -55,6 +55,7 @@ class ProfileController extends Controller {
         return view('profiles.index', [
             'profiles' => $profiles,
             'cities' => $cities_dict,
+            'filter_params' => $filter_params,
         ]);
     }
 

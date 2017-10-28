@@ -3,7 +3,7 @@
 @include('layouts.nav')
 @section('content')
 <!-- Create Task Form... -->
-
+<?php // dd($profiles); ?>
 <!-- Current Tasks -->
 
 <div class="panel panel-default">
@@ -13,25 +13,24 @@
     <!-- Trigger the modal with a button -->
     <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#thumb_modal">Open Modal</button> -->
     <form class="form-inline">
-        Showing <span>{{ count($profiles) }}</span> result<span>s</span> from 
+        Showing <span>{{ $profiles->total() }}</span> result<span>s</span> from 
         <select name="sex" class="form-control">
-            <option value="0">both</option>    
-            <option value="man">men</option>    
-            <option value="woman" selected>women</option>    
+            <option value="" <?php echo (!empty($filter_params['sex'])) ? '':'selected' ?> >both</option>    
+            <option value="man" <?php echo (!empty($filter_params['sex']) && $filter_params['sex'] == 'man') ? 'selected':'' ?> >men</option>    
+            <option value="woman" <?php echo (!empty($filter_params['sex']) && $filter_params['sex'] == 'woman') ? 'selected':'' ?> >women</option>    
         </select> 
         named like 
-        <input type="text" class="form-control" name="name" placeholder="Name" value="{{ Request::get('name') }}" /> 
+        <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $filter_params['name'] or '' }}" /> 
         in 
         <select name="city" class="form-control">
-            <option value="Delhi" selected>New Delhi</option>    
             @foreach (json_decode($cities_map, TRUE) as $city => $value)
             <option value="{{$city}}">{{$city}}</option>    
             @endforeach
         </select> 
         and surrounding areas, aged between 
-        <input type="number" class="form-control" name="age_from" placeholder="Age from" value="{{ Request::get('age_from') }}" /> 
+        <input type="number" class="form-control" name="age_from" placeholder="Age from" value="{{ $filter_params['age_from'] or 18 }}" /> 
         &amp; 
-        <input type="number" class="form-control" name="age_to" placeholder="Age to" value="{{ Request::get('age_to') }}" />
+        <input type="number" class="form-control" name="age_to" placeholder="Age to" value="{{ $filter_params['age_to'] or 55 }}" />
         <input type="submit" class="btn-primary form-control" name="" value="Search">
     </form>
     @if (count($profiles) > 0)
@@ -69,7 +68,9 @@
                     </td>
                 </tr>
                 @endforeach
-                {{$profiles->appends(Request::only('name','age_from','age_to','city','sex'))->render()}}
+                @if ($filter_params)
+                    {{ $profiles->appends($filter_params)->links() }}
+                @endif
             </tbody>
         </table>
     </div>
