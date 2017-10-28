@@ -13,7 +13,7 @@
     <!-- Trigger the modal with a button -->
     <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#thumb_modal">Open Modal</button> -->
     <form class="form-inline">
-        Showing <span>{{ $profiles->total() }}</span> result<span>s</span> from 
+        Showing <span></span> result<span>s</span> from 
         <select name="sex" class="form-control">
             <option value="" <?php echo (!empty($filter_params['sex'])) ? '':'selected' ?> >both</option>    
             <option value="man" <?php echo (!empty($filter_params['sex']) && $filter_params['sex'] == 'man') ? 'selected':'' ?> >men</option>    
@@ -23,8 +23,9 @@
         <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $filter_params['name'] or '' }}" /> 
         in 
         <select name="city" class="form-control">
+            <option value="">All</option>
             @foreach (json_decode($cities_map, TRUE) as $city => $value)
-            <option value="{{$city}}">{{$city}}</option>    
+            <option value="{{$city}}" <?php echo (!empty($filter_params['city']) && $city == $filter_params['city']) ? 'selected' : ''; ?> >{{$city}}</option>    
             @endforeach
         </select> 
         and surrounding areas, aged between 
@@ -33,6 +34,7 @@
         <input type="number" class="form-control" name="age_to" placeholder="Age to" value="{{ $filter_params['age_to'] or 55 }}" />
         <input type="submit" class="btn-primary form-control" name="" value="Search">
     </form>
+    <a href="{{ env('APP_URL') }}">clear filters</a> 
     @if (count($profiles) > 0)
     <div class="panel-body table-responsive">
         <table class="table table-striped">
@@ -47,10 +49,7 @@
                 <tr class="profile_row" data-profile_id="{{ $profile->id }}" data-profile_city="{{ $cities[$profile->city_id] }}" data-profile_data="{{ $profile->first_name }} {{ $profile->last_name }}, {{ $profile->age }}" data-detail_anchor="{{ route('detail', ['id' => $profile->id]) }}" >
                     <!-- First Name -->
                     <td class="table-text">
-                        <div>{{ $profile->first_name }}</div>
-                    </td>
-                    <td class="table-text">
-                        <div>{{ $profile->last_name }}</div>
+                        <div>{{ $profile->first_name }} {{ $profile->last_name }}</div>
                     </td>
                     </td>
                     <td class="table-text">
