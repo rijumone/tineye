@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Profile;
+use App\City;
 
 class ProfileRepository {
 
@@ -14,11 +15,23 @@ class ProfileRepository {
      */
 
     public function filter($filter_params) {
-        $_ = Profile::where('active', 1);
 
+        // get Cities list
+        // if ($filter_params['city']){
+        //     $_ = City::where('name', $filter_params['city']);
+        //     // $_->where();
+        //     $cities = $_->get();
+        //     dd($cities);
+        // }
+
+        // $profile = Profile::find(1504384625);
+        // dd($profile->city);
+        $_ = Profile::where('active', 1);
         if ($filter_params['name']){
-            $_->where('first_name','like','%'.$filter_params['name'].'%');
-            // $_->orWhere('last_name','like','%'.$filter_params['name'].'%');
+            $_->where(function($query) use($filter_params){
+                $query->where('first_name','like','%'.$filter_params['name'].'%');
+                $query->orWhere('last_name','like','%'.$filter_params['name'].'%');
+            });
         }    
         if ($filter_params['sex']){
             $_->where('sex', $filter_params['sex']);
@@ -29,7 +42,7 @@ class ProfileRepository {
 
 
         $result = $_->orderBy('created_at', 'asc')
-                ->get();
+                ->paginate(1);
         // dd($result);
         return $result;
     }

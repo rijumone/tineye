@@ -22,4 +22,8 @@ class Profile extends Model
     	'state_id',
     	'country_id',
     ];
+
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }

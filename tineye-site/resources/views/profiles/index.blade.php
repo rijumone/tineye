@@ -8,19 +8,19 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        All profiles
+        Search results
     </div>
     <!-- Trigger the modal with a button -->
     <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#thumb_modal">Open Modal</button> -->
     <form class="form-inline">
-        Showing <span>5</span> result<span>s</span> from 
+        Showing <span>{{ count($profiles) }}</span> result<span>s</span> from 
         <select name="sex" class="form-control">
             <option value="0">both</option>    
             <option value="man">men</option>    
             <option value="woman" selected>women</option>    
         </select> 
         named like 
-        <input type="text" class="form-control" name="name" placeholder="Name" value="Sneha" /> 
+        <input type="text" class="form-control" name="name" placeholder="Name" value="{{ Request::get('name') }}" /> 
         in 
         <select name="city" class="form-control">
             <option value="Delhi" selected>New Delhi</option>    
@@ -29,9 +29,9 @@
             @endforeach
         </select> 
         and surrounding areas, aged between 
-        <input type="number" class="form-control" name="age_from" placeholder="Age from" value="18" /> 
+        <input type="number" class="form-control" name="age_from" placeholder="Age from" value="{{ Request::get('age_from') }}" /> 
         &amp; 
-        <input type="number" class="form-control" name="age_to" placeholder="Age to" value="19" />
+        <input type="number" class="form-control" name="age_to" placeholder="Age to" value="{{ Request::get('age_to') }}" />
         <input type="submit" class="btn-primary form-control" name="" value="Search">
     </form>
     @if (count($profiles) > 0)
@@ -69,6 +69,7 @@
                     </td>
                 </tr>
                 @endforeach
+                {{$profiles->appends(Request::only('name','age_from','age_to','city','sex'))->render()}}
             </tbody>
         </table>
     </div>
