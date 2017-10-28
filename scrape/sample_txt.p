@@ -1,0 +1,3 @@
+S"Vaune Everis, 28\nIHG Reservations\n2878 km. away\nProfile menu\nI love music (who doesn't?). Love to write--- a much less expensive form of therapy. Hanging out with friends & grabbing a bite to eat, all part of my general routine. Would love to travel more (I've only ever been outside of the Philippines once. Will lengthen that list soonest). Love the simple things in life. And CS Lewis. No hookups."
+p0
+.
