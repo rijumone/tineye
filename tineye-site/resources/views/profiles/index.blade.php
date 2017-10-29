@@ -61,6 +61,9 @@
                     <td class="table-text">
                         <div>{{ $cities[$profile->city_id] }}</div>
                     </td>
+                    <td class="table-text">
+                        <div>{!! str_replace("<br /><br />","<br />",$profile->bio) !!}</div>
+                    </td>
 
                     <td>
                         <!-- TODO: Delete Button -->

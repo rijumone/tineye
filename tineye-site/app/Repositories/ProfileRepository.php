@@ -41,7 +41,7 @@ class ProfileRepository {
         }
 
 
-        $result = $_->orderBy('id', 'asc')
+        $result = $_->orderBy('id', 'desc')
                 ->paginate(10);
         // dd($result);
         return $result;
