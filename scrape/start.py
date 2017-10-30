@@ -20,7 +20,7 @@ ref_img_tpl = (1013, 163, 375, 567)
 # bio_drag_str_tpl = (1025, 665)
 # bio_drag_end_tpl = (1200,823)
 bio_tpl = (1185, 630)
-sex = "woman"
+sex = "man"
 
 city_id = "1"
 state_id = "1"
@@ -50,8 +50,11 @@ while True: 		# main loop
 	work_id = "NULL"
 	school_id = "NULL"
 	work_school_id = "NULL"
-	
+	bio = ""
+	occp_work_school = ""
+	distance = "NULL"
 	subdir = int(time.time())
+	age = "0"
 
 	working_path = local_dir + "/" + city + "/" + str(subdir) 
 	
@@ -94,81 +97,88 @@ while True: 		# main loop
 
 	text_in_clipboard = root.clipboard_get()
 	# text_in_clipboard = pickle.load(open("sample_txt.p"))
-	print(text_in_clipboard)
+	# print(text_in_clipboard)
 	# pickle.dump(text_in_clipboard,open("sample_txt.p","wb"))
 
 	data_lst = text_in_clipboard.split("\n")
 	print(data_lst)
 
-	# first check if work or school or both
-	if len(text_in_clipboard.split("km. away")[0].split("\n")) >= 4 : # work and school both exist
-		# fetch or insert work_id
-		work_school_id = "NULL"
-		work = data_lst[1].replace("'","&apos;")	
-		sql = ("SELECT id,name FROM work_schools WHERE name = '%s' AND type = '%s' ;" %(work, "work"))
-		cursor.execute(sql)
-		results = cursor.fetchone()
-		if results is not None:
-			work_id = results[0]
-			print("work found: " + results[1])
-		else:
-			sql = ("INSERT into work_schools (`name`,`type`) VALUES ('%s', '%s');" %(work, 'work'))	
-			try:
-				cursor.execute(sql)
-		   		db.commit()
-				work_id = cursor.lastrowid
-			except:
-			   # Rollback in case there is any error
-			   print "EXCEPTION!"
-			   print(traceback.format_exc())
-			   db.rollback()
-		# fetch or insert school_id
-		school = data_lst[2].replace("'","&apos;")
-		sql = ("SELECT id,name FROM work_schools WHERE name = '%s' AND type = '%s' ;" %(school, "school"))
-		cursor.execute(sql)
-		results = cursor.fetchone()
-		if results is not None:
-			school_id = results[0]
-			print("school found: " + results[1])
-		else:
-			sql = ("INSERT into work_schools (`name`,`type`) VALUES ('%s', '%s');" %(school, 'school'))	
-			try:
-				cursor.execute(sql)
-		   		db.commit()
-				school_id = cursor.lastrowid
-			except:
-			   # Rollback in case there is any error
-			   print "EXCEPTION!"
-			   print(traceback.format_exc())
-			   db.rollback()
+	if False: # occupation, work, school scrapped for now
+		# first check if work or school or both
+		if len(text_in_clipboard.split("km. away")[0].split("\n")) >= 4 : # work and school both exist
+			# fetch or insert work_id
+			work_school_id = "NULL"
+			work = data_lst[1].replace("'","&apos;")	
+			sql = ("SELECT id,name FROM work_schools WHERE name = '%s' AND type = '%s' ;" %(work, "work"))
+			cursor.execute(sql)
+			results = cursor.fetchone()
+			if results is not None:
+				work_id = results[0]
+				print("work found: " + results[1])
+			else:
+				sql = ("INSERT into work_schools (`name`,`type`) VALUES ('%s', '%s');" %(work, 'work'))	
+				try:
+					cursor.execute(sql)
+			   		db.commit()
+					work_id = cursor.lastrowid
+				except:
+				   # Rollback in case there is any error
+				   print "EXCEPTION!"
+				   print(traceback.format_exc())
+				   db.rollback()
+			# fetch or insert school_id
+			school = data_lst[2].replace("'","&apos;")
+			sql = ("SELECT id,name FROM work_schools WHERE name = '%s' AND type = '%s' ;" %(school, "school"))
+			cursor.execute(sql)
+			results = cursor.fetchone()
+			if results is not None:
+				school_id = results[0]
+				print("school found: " + results[1])
+			else:
+				sql = ("INSERT into work_schools (`name`,`type`) VALUES ('%s', '%s');" %(school, 'school'))	
+				try:
+					cursor.execute(sql)
+			   		db.commit()
+					school_id = cursor.lastrowid
+				except:
+				   # Rollback in case there is any error
+				   print "EXCEPTION!"
+				   print(traceback.format_exc())
+				   db.rollback()
 
 
-	elif "km. away" not in data_lst[1]: # school and/or work info exists
-		# fetch or insert work_school_id
+		elif "km. away" not in data_lst[1]: # school and/or work info exists
+			# fetch or insert work_school_id
 
-		work_school_str = data_lst[1].replace("'","&apos;")
-		sql = ("SELECT id,name FROM work_schools WHERE name = '%s';" %(work_school_str))
-		cursor.execute(sql)
-		results = cursor.fetchone()
-		if results is not None:
-			work_school_id = results[0]
-			print("work/school found: " + results[1])
-		else:
-			sql = ("INSERT into work_schools (`name`) VALUES ('%s');" %(work_school_str))
-			try:
-				cursor.execute(sql)
-		   		db.commit()
-				work_school_id = cursor.lastrowid
-			except:
-			   # Rollback in case there is any error
-			   print "EXCEPTION!"
-			   print(traceback.format_exc())
-			   db.rollback()
+			work_school_str = data_lst[1].replace("'","&apos;")
+			sql = ("SELECT id,name FROM work_schools WHERE name = '%s';" %(work_school_str))
+			cursor.execute(sql)
+			results = cursor.fetchone()
+			if results is not None:
+				work_school_id = results[0]
+				print("work/school found: " + results[1])
+			else:
+				sql = ("INSERT into work_schools (`name`) VALUES ('%s');" %(work_school_str))
+				try:
+					cursor.execute(sql)
+			   		db.commit()
+					work_school_id = cursor.lastrowid
+				except:
+				   # Rollback in case there is any error
+				   print "EXCEPTION!"
+				   print(traceback.format_exc())
+				   db.rollback()
 
 	name = data_lst[0].split(", ")[0].replace("'","&apos;")
-	age = data_lst[0].split(", ")[1]
-	distance = text_in_clipboard.split(" km. away")[0].split("\n")[-1]
-	bio = re.sub(r'[^\x00-\x7F]+',' ', text_in_clipboard.split(" km. away")[1].replace("\n","<br />").replace("'","&apos;").replace("Profile menu",""))
+	if len(text_in_clipboard.split("Profile menu")[0].split("\n")) >= 2:
+		occp_work_school = " | ".join(text_in_clipboard.split("Profile menu")[0].split("\n")[1:]).replace("'","&apos;")
+	if len(data_lst[0].split(", ")) >= 2: # age exists 
+		age = data_lst[0].split(", ")[1]
+		# 
+	if len(text_in_clipboard.split(" km. away")) >= 2: # distance exists
+		distance = text_in_clipboard.split(" km. away")[0].split("\n")[-1]
+	if len(text_in_clipboard.split("Profile menu")) >= 2: # bio exists
+		bio = re.sub(r'[^\x00-\x7F]+',' ', text_in_clipboard.split("Profile menu")[1].replace("\n","<br />").replace("'","&apos;"))
 	# re.sub(r'[^\x00-\x7F]+',' ', text)
 	print(str(subdir))
 	print(name)
@@ -178,7 +188,7 @@ while True: 		# main loop
 	print(distance)
 
 	# main "profiles" insert
-	sql = ("INSERT into profiles (`id`,`first_name`,`last_name`,`age`,`sex`,`active`,`bio`,`distance`,`work_school_id`,`school_id`,`work_id`,`city_id`,`state_id`,`country_id`) VALUES (%s, '%s', '', %s, '%s', 1, '%s', %s, %s, %s, %s, %s, %s, %s);" %(str(subdir), name, str(age), sex, bio, distance, str(work_school_id), str(school_id), str(work_id), city_id, state_id, country_id))
+	sql = ("INSERT into profiles (`id`,`first_name`,`last_name`,`age`,`sex`,`active`,`bio`,`distance`,`occp_work_school`,`work_school_id`,`school_id`,`work_id`,`city_id`,`state_id`,`country_id`) VALUES (%s, '%s', '', %s, '%s', 1, '%s', %s, '%s', %s, %s, %s, %s, %s, %s);" %(str(subdir), name, str(age), sex, bio, distance, occp_work_school, str(work_school_id), str(school_id), str(work_id), city_id, state_id, country_id))
 
 	try:
 		cursor.execute(sql)
@@ -192,7 +202,10 @@ while True: 		# main loop
 
 
 	print("last insert id: " + str(cursor.lastrowid))
-	pyautogui.press('right') 	# move to next profile
+	if sex == "man":
+		pyautogui.press('left') 	# nope
+	else:
+		pyautogui.press('right') 	# like
 	time.sleep(1.5)
 
 
@@ -207,4 +220,12 @@ Mudra Institute of Communications, Ahmedabad (MICA)
 7 km. away
 Profile menu
 Food n travel lead my life!! Will take time open up but if you come in my good books, your life be better by my side
+
+
+
+Kavin
+Founder & CEO at Hike
+Imperial College London
+Profile menu
+Good Vibes Only
 """
