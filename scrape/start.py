@@ -12,23 +12,30 @@ import MySQLdb
 import os
 import traceback
 import re
+import Image
+import pytesseract
 
 # constants
-img_tpl = (1013, 163, 375, 375)
-ref_img_tpl = (1013, 163, 375, 567)
+img_tpl = (1013, 163, 375, 375)		# 1920 x 1080
+img_tpl = (804, 96, 375, 375)		# 999 x 619
+ref_img_tpl = (1013, 163, 375, 567)	# 1920 x 1080
+ref_img_tpl = (804, 125, 375, 385)	# 999 x 619
+out_of_likes_img_tpl = (785, 338, 175, 30)	# 999 x 619
 # name_age_tpl = (1013, 163, 375, 375)
 # bio_drag_str_tpl = (1025, 665)
 # bio_drag_end_tpl = (1200,823)
-bio_tpl = (1185, 630)
+bio_tpl = (1185, 630)				# 1920 x 1080
+bio_tpl = (985, 513)				# 999 x 619
 sex = "man"
 
-city_id = "1"
-state_id = "1"
+city_id = "2"
+state_id = "2"
 country_id = "1"
 
+out_of_likes = False
 
 local_dir = "/home/rijumone/Downloads/data/"
-city = "Delhi"
+city = "Mumbai"
 
 mysql_db_host = "localhost"
 mysql_db_user = "root"
@@ -40,11 +47,11 @@ cursor = db.cursor()
 time.sleep(2)		# 3 second warning, get your shit together
 root = Tkinter.Tk()
 root.withdraw() # Hide the main window (optional)
-pyautogui.press('f11')	# enter full screen 
+# pyautogui.press('f11')	# enter full screen 
 time.sleep(2.5)			# breath!
 print("starting")
 
-while True: 		# main loop
+while not out_of_likes: 		# main loop
 # for miu in range(3): 		# main loop
 	# loop variables resetting
 	work_id = "NULL"
@@ -208,24 +215,11 @@ while True: 		# main loop
 		pyautogui.press('right') 	# like
 	time.sleep(1.5)
 
+	# check if out of likes
+	im = pyautogui.screenshot(region=out_of_likes_img_tpl)
+	im.save("out_of_likes_test.png")
+	if pytesseract.image_to_string(Image.open("out_of_likes_test.png")):
+		out_of_likes = True
+		os.remove("out_of_likes_test.png")	
 
-pyautogui.press('f11')	# exit full screen 
-
-
-"""
-Nikita, 23
-Heroine
-ShopClues
-Mudra Institute of Communications, Ahmedabad (MICA)
-7 km. away
-Profile menu
-Food n travel lead my life!! Will take time open up but if you come in my good books, your life be better by my side
-
-
-
-Kavin
-Founder & CEO at Hike
-Imperial College London
-Profile menu
-Good Vibes Only
-"""
+# pyautogui.press('f11')	# exit full screen 
