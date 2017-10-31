@@ -204,6 +204,7 @@ while not out_of_likes: 		# main loop
 	except:
 	   # Rollback in case there is any error
 	   print "EXCEPTION!"
+	   os.remove("out_of_likes_test.png")
 	   print(traceback.format_exc())
 	   db.rollback()
 
@@ -219,6 +220,7 @@ while not out_of_likes: 		# main loop
 	im = pyautogui.screenshot(region=out_of_likes_img_tpl)
 	im.save("out_of_likes_test.png")
 	if pytesseract.image_to_string(Image.open("out_of_likes_test.png")):
+		print("out of likes")
 		out_of_likes = True
 		os.remove("out_of_likes_test.png")	
 
