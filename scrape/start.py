@@ -28,14 +28,14 @@ bio_tpl = (1185, 630)				# 1920 x 1080
 bio_tpl = (985, 513)				# 999 x 619
 sex = "man"
 
-city_id = "2"
-state_id = "2"
+city_id = "3"
+state_id = "3"
 country_id = "1"
+city = "Bangalore"
 
 out_of_likes = False
 
 local_dir = "/home/rijumone/Downloads/data/"
-city = "Mumbai"
 
 mysql_db_host = "localhost"
 mysql_db_user = "root"
@@ -52,7 +52,6 @@ time.sleep(2.5)			# breath!
 print("starting")
 
 while not out_of_likes: 		# main loop
-# for miu in range(3): 		# main loop
 	# loop variables resetting
 	work_id = "NULL"
 	school_id = "NULL"
@@ -202,16 +201,17 @@ while not out_of_likes: 		# main loop
 		db.commit()
 		print("data inserted!")
 	except:
-	   # Rollback in case there is any error
-	   print "EXCEPTION!"
-	   os.remove("out_of_likes_test.png")
-	   print(traceback.format_exc())
-	   db.rollback()
+	   	# Rollback in case there is any error
+	   	print "EXCEPTION!"
+	   	if os.path.isfile("out_of_likes_test.png"):
+	   		os.remove("out_of_likes_test.png")
+	   	print(traceback.format_exc())
+	   	db.rollback()
 
 
 	print("last insert id: " + str(cursor.lastrowid))
 	if sex == "man":
-		pyautogui.press('left') 	# nope
+		pyautogui.hotkey('ctrl', 'r')	# Ctrl + R; refresh page lol
 	else:
 		pyautogui.press('right') 	# like
 	time.sleep(1.5)
@@ -219,7 +219,7 @@ while not out_of_likes: 		# main loop
 	# check if out of likes
 	im = pyautogui.screenshot(region=out_of_likes_img_tpl)
 	im.save("out_of_likes_test.png")
-	if pytesseract.image_to_string(Image.open("out_of_likes_test.png")):
+	if "out of likes" in pytesseract.image_to_string(Image.open("out_of_likes_test.png")):
 		print("out of likes")
 		out_of_likes = True
 		os.remove("out_of_likes_test.png")	
